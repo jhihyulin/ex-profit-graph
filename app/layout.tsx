@@ -37,13 +37,18 @@ export default function RootLayout({
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image
-              aria-hidden
-              src="/logos/github-mark-white.svg"
-              alt="GitHub mark"
-              width={32}
-              height={32}
-            />
+            <picture>
+              <source
+                srcSet="/logos/github-mark-white.svg"
+                media="(prefers-color-scheme: dark)"
+              />
+              <img
+                src="/logos/github-mark.svg"
+                alt="GitHub mark"
+                width={32}
+                height={32}
+              />
+            </picture>
           </a>
           <p className="text-sm text-center w-full">
             &copy; {new Date().getFullYear()} jhihyulin.
