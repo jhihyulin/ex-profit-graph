@@ -16,7 +16,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "收益圖產生器",
-  description: "還在 P 圖？還在開對衝單？不需要這麼累！直接產生收益圖，收割大把反傭！",
+  description: "還在 P 圖？還在開對衝單？現在起不需要這麼累！直接產生收益圖，營造良好績效，收割大把反傭！",
 };
 
 export default function RootLayout({
