@@ -2,11 +2,7 @@
 
 import { useState } from "react";
 import { TestData, defaultTestData, TestOption } from "./components/test";
-import {
-  BingXData,
-  defaultBingXData,
-  BingXOption,
-} from "./components/bingx/bingx";
+import { BingXData, defaultBingXData, BingXOption } from "./components/bingx";
 
 export default function Generate() {
   const [formType, setFormType] = useState<string>("bingx");
@@ -20,7 +16,7 @@ export default function Generate() {
   return (
     <div className="flex items-center justify-center min-h-screen min-w-screen p-4 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-wrap gap-8 items-center justify-center w-full">
-        <div className="flex flex-col gap-4 justify-center bg-gray-600 p-4 justify-center rounded-md w-full lg:w-3/5 max-w-sm aspect-square">
+        <div className="flex flex-col justify-center items-center bg-gray-600 p-4 rounded-md w-full lg:w-3/5 max-w-sm aspect-square">
           {formTypeSelections.map((selection) => (
             <div key={selection.value}>
               {formType === selection.value ? selection.generate : null}

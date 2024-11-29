@@ -10,12 +10,12 @@ export const formatDate = (
   const minute = date.getMinutes();
   const second = date.getSeconds();
   const formatMap: { [key: string]: any } = {
-    yyyy: year.toString(),
-    MM: month.toString().padStart(2, "0"),
-    dd: day.toString().padStart(2, "0"),
-    HH: hour.toString().padStart(2, "0"),
-    mm: minute.toString().padStart(2, "0"),
-    ss: second.toString().padStart(2, "0"),
+    yyyy: year.toLocaleString(),
+    MM: month.toLocaleString().padStart(2, "0"),
+    dd: day.toLocaleString().padStart(2, "0"),
+    HH: hour.toLocaleString().padStart(2, "0"),
+    mm: minute.toLocaleString().padStart(2, "0"),
+    ss: second.toLocaleString().padStart(2, "0"),
   };
   return format.replace(/yyyy|MM|dd|HH|mm|ss/g, (match) => formatMap[match]);
 };

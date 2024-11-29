@@ -1,13 +1,25 @@
-import { FormProps, GenerateProps } from "../../props";
-import { formatDate, formatNumber } from "../../../modules/format";
-// 字體 qr
+import { FormProps, GenerateProps } from "../props";
+import { formatDate, formatNumber } from "../../modules/format";
+import { Rubik } from "next/font/google";
+// qr
+
+const rubik = Rubik({ subsets: ["latin"] });
 
 interface BingXData {
   pairStandard: string;
   pairQuote: string;
   sideIsBuy: boolean;
+  tradeMode: string;
+  tradeModes: {
+    [key: string]: string;
+  };
   leverage: number;
   profitPercentage: number;
+  profitAmount: number;
+  profitMode: string;
+  profitModes: {
+    [key: string]: string;
+  };
   openPrice: number;
   closePrice: number;
   time: Date;
@@ -15,9 +27,13 @@ interface BingXData {
   username: string;
   referralCode: string;
   version: string;
-  versions?: string[];
+  versions?: {
+    [key: string]: string;
+  };
   style: string;
-  styles?: string[];
+  styles?: {
+    [key: string]: string;
+  };
   backgrounds?: {
     [key: string]: {
       loss: {
@@ -34,8 +50,19 @@ const defaultBingXData: BingXData = {
   pairStandard: "BTC",
   pairQuote: "USDT",
   sideIsBuy: true,
+  tradeMode: "future",
+  tradeModes: {
+    // spot: "現貨",
+    future: "合約",
+  },
   leverage: 125,
   profitPercentage: 0,
+  profitAmount: 0,
+  profitMode: "percentage",
+  profitModes: {
+    percentage: "收益率",
+    amount: "收益額",
+  },
   openPrice: 0,
   closePrice: 0,
   time: new Date(),
@@ -43,9 +70,15 @@ const defaultBingXData: BingXData = {
   username: "Harvest Chives",
   referralCode: "VWZLJ6",
   version: "v7",
-  versions: ["v6", "v7"],
+  versions: {
+    v6: "UFC 拳擊手",
+    v7: "切爾西足球俱樂部",
+  },
   style: "style1",
-  styles: ["style1", "style2"],
+  styles: {
+    style1: "綠漲紅跌",
+    style2: "紅漲綠跌",
+  },
   backgrounds: {
     v6: {
       loss: {
@@ -87,24 +120,24 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
   <div>
     <div className="flex flex-row gap-4">
       <select
-        className="p-2 bg-blue border rounded text-black"
+        className="p-2 bg-blue border rounded text-black w-1/2"
         value={data.version}
         onChange={(e) => setData({ ...data, version: e.target.value })}
       >
-        {data.versions?.map((version) => (
-          <option key={version} value={version}>
-            {version}
+        {Object.entries(data.versions!).map(([key, value]) => (
+          <option key={key} value={key}>
+            {value}
           </option>
         ))}
       </select>
       <select
-        className="p-2 bg-blue border rounded text-black"
+        className="p-2 bg-blue border rounded text-black w-1/2"
         value={data.style}
         onChange={(e) => setData({ ...data, style: e.target.value })}
       >
-        {data.styles?.map((style) => (
-          <option key={style} value={style}>
-            {style}
+        {Object.entries(data.styles!).map(([key, value]) => (
+          <option key={key} value={key}>
+            {value}
           </option>
         ))}
       </select>
@@ -112,11 +145,17 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
     <div className="flex flex-row gap-4 mt-4">
       <button
         className={`p-2 border rounded ${
-          data.sideIsBuy ? "bg-green-500" : "bg-red-500"
+          data.style === "style1"
+            ? data.sideIsBuy
+              ? "bg-green-500"
+              : "bg-red-500"
+            : data.sideIsBuy
+            ? "bg-red-500"
+            : "bg-green-500"
         } text-white w-1/3`}
         onClick={() => setData({ ...data, sideIsBuy: !data.sideIsBuy })}
       >
-        {data.sideIsBuy ? "Buy" : "Sell"}
+        {data.sideIsBuy ? "買" : "賣"}
       </button>
       <input
         className="p-2 bg-blue border rounded text-black w-1/3"
@@ -132,8 +171,19 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
       />
     </div>
     <div className="flex flex-row gap-4 mt-4">
+      <select
+        className="p-2 bg-blue border rounded text-black w-1/2"
+        value={data.tradeMode}
+        onChange={(e) => setData({ ...data, tradeMode: e.target.value })}
+      >
+        {Object.entries(data.tradeModes!).map(([key, value]) => (
+          <option key={key} value={key}>
+            {value}
+          </option>
+        ))}
+      </select>
       <input
-        className="p-2 bg-blue border rounded text-black w-20"
+        className="p-2 bg-blue border rounded text-black w-1/2"
         type="number"
         value={data.leverage}
         onChange={(e) =>
@@ -142,18 +192,43 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
       />
     </div>
     <div className="flex flex-row gap-4 mt-4">
+      <select
+        className="p-2 bg-blue border rounded text-black w-2/5"
+        value={data.profitMode}
+        onChange={(e) => setData({ ...data, profitMode: e.target.value })}
+      >
+        {Object.entries(data.profitModes!).map(([key, value]) => (
+          <option key={key} value={key}>
+            {value}
+          </option>
+        ))}
+      </select>
       <input
-        className="p-2 bg-blue border rounded text-black w-20"
+        className="p-2 bg-blue border rounded text-black w-3/5"
         type="number"
-        value={data.profitPercentage}
+        value={
+          data.profitMode === "percentage"
+            ? data.profitPercentage
+            : data.profitAmount
+        }
         onChange={(e) =>
-          setData({ ...data, profitPercentage: parseFloat(e.target.value) })
+          setData({
+            ...data,
+            profitPercentage:
+              data.profitMode === "percentage"
+                ? parseFloat(e.target.value)
+                : data.profitPercentage,
+            profitAmount:
+              data.profitMode === "amount"
+                ? parseFloat(e.target.value)
+                : data.profitAmount,
+          })
         }
       />
     </div>
     <div className="flex flex-row gap-4 mt-4">
       <input
-        className="p-2 bg-blue border rounded text-black w-20"
+        className="p-2 bg-blue border rounded text-black w-1/2"
         type="number"
         value={data.closePrice}
         onChange={(e) =>
@@ -161,7 +236,7 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
         }
       />
       <input
-        className="p-2 bg-blue border rounded text-black w-20"
+        className="p-2 bg-blue border rounded text-black w-1/2"
         type="number"
         value={data.openPrice}
         onChange={(e) =>
@@ -178,20 +253,37 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
       />
     </div>
     <div className="flex flex-row gap-4 mt-4">
+      <button
+        className="p-2 bg-blue border rounded w-full"
+        onClick={() => {
+          const input = document.createElement("input");
+          input.type = "file";
+          input.accept = "image/*";
+          input.onchange = (e) => {
+            const file = (e.target as HTMLInputElement).files?.[0];
+            if (file) {
+              const reader = new FileReader();
+              reader.onload = (e) => {
+                setData({ ...data, avatar: e.target?.result as string });
+              };
+              reader.readAsDataURL(file);
+            }
+          };
+          input.click();
+        }}
+      >
+        開啟頭像
+      </button>
+    </div>
+    <div className="flex flex-row gap-4 mt-4">
       <input
-        className="p-2 bg-blue border rounded text-black w-20"
-        type="text"
-        value={data.avatar}
-        onChange={(e) => setData({ ...data, avatar: e.target.value })}
-      />
-      <input
-        className="p-2 bg-blue border rounded text-black w-20"
+        className="p-2 bg-blue border rounded text-black w-1/2"
         type="text"
         value={data.username}
         onChange={(e) => setData({ ...data, username: e.target.value })}
       />
       <input
-        className="p-2 bg-blue border rounded text-black w-20"
+        className="p-2 bg-blue border rounded text-black w-1/2"
         type="text"
         value={data.referralCode}
         onChange={(e) => setData({ ...data, referralCode: e.target.value })}
@@ -303,7 +395,14 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
             style={{
               // color: "ff006b !important",
               // color: "#00ff9d !important",
-              color: data.sideIsBuy ? "#00ff9d" : "#ff006b",
+              color:
+                data.style === "style1"
+                  ? data.sideIsBuy
+                    ? "#00ff9d"
+                    : "#ff006b"
+                  : data.sideIsBuy
+                  ? "#ff006b"
+                  : "#00ff9d",
               alignItems: "center",
               display: "flex",
               fontSize: "16px",
@@ -350,9 +449,10 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
             opacity: ".5",
           }}
         >
-          收益率
+          {data.profitMode === "percentage" ? "收益率" : "收益額"}
         </span>
         <div
+          className={rubik.className}
           style={{
             fontSize: "40px",
             // color: "#00ff9d !important",
@@ -366,9 +466,23 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
                 ? "#ff006b"
                 : "#00ff9d",
             fontFamily: "Rubik",
+            lineHeight: "48px",
           }}
         >
-          <span>{data.profitPercentage ?? 0}%</span>
+          {data.profitMode === "percentage" ? (
+            <span>
+              <span>{data.profitPercentage}</span>%
+            </span>
+          ) : (
+            <span
+              style={{
+                fontSize: "26px",
+              }}
+            >
+              <span>{data.profitAmount}</span>
+              {" " + data.pairQuote}
+            </span>
+          )}
         </div>
         <ul
           style={{
@@ -610,7 +724,9 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
               style={{
                 width: "100%",
               }}
-              src="data:image/png;base64,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"
+              src={`https://quickchart.io/qr?text=${encodeURIComponent(
+                `https://bingx.com/invite/${data.referralCode}?ch=share_poster_position`
+              )}`}
             />
           </div>
         </div>
