@@ -1,12 +1,15 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { TestData, defaultTestData, TestOption } from "./components/test";
-import { BingXData, defaultBingXData, BingXOption } from "./components/bingx";
+import {
+  BingXData,
+  defaultBingXData,
+  BingXOption,
+} from "./components/bingx/bingx";
 
 export default function Generate() {
-  const [formType, setFormType] = useState<string>("test");
+  const [formType, setFormType] = useState<string>("bingx");
   const [bingXData, setBingXData] = useState<BingXData>(defaultBingXData);
   const [testData, setTestData] = useState<TestData>(defaultTestData);
   const formTypeSelections = [
