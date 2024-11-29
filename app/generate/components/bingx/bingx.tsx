@@ -16,10 +16,16 @@ interface BingXData {
   referralCode: string;
   version: string;
   versions?: string[];
+  style: string;
+  styles?: string[];
   backgrounds?: {
     [key: string]: {
-      loss: string;
-      profit: string;
+      loss: {
+        [key: string]: string;
+      };
+      profit: {
+        [key: string]: string;
+      };
     };
   };
 }
@@ -38,14 +44,28 @@ const defaultBingXData: BingXData = {
   referralCode: "VWZLJ6",
   version: "v7",
   versions: ["v6", "v7"],
+  style: "style1",
+  styles: ["style1", "style2"],
   backgrounds: {
     v6: {
-      loss: "./graph/bingx/v6/loss_style1_V3.png",
-      profit: "./graph/bingx/v6/profit_style1_V3.png",
+      loss: {
+        style1: "./graph/bingx/v6/loss_style1_V3.png",
+        style2: "./graph/bingx/v6/loss_style2_V3.png",
+      },
+      profit: {
+        style1: "./graph/bingx/v6/profit_style1_V3.png",
+        style2: "./graph/bingx/v6/profit_style2_V3.png",
+      },
     },
     v7: {
-      loss: "./graph/bingx/v7/loss_style1_V6.png",
-      profit: "./graph/bingx/v7/profit_style1_V6.png",
+      loss: {
+        style1: "./graph/bingx/v7/loss_style1_V6.png",
+        style2: "./graph/bingx/v7/loss_style2_V6.png",
+      },
+      profit: {
+        style1: "./graph/bingx/v7/profit_style1_V6.png",
+        style2: "./graph/bingx/v7/profit_style2_V6.png",
+      },
     },
   },
 };
@@ -74,6 +94,17 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
         {data.versions?.map((version) => (
           <option key={version} value={version}>
             {version}
+          </option>
+        ))}
+      </select>
+      <select
+        className="p-2 bg-blue border rounded text-black"
+        value={data.style}
+        onChange={(e) => setData({ ...data, style: e.target.value })}
+      >
+        {data.styles?.map((style) => (
+          <option key={style} value={style}>
+            {style}
           </option>
         ))}
       </select>
@@ -183,8 +214,8 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
         "'Source Sans Pro', 'Microsoft YaHei', Inter, 'Inter Fallback', sans-serif",
       backgroundImage:
         data.profitPercentage! >= 0
-          ? `url(${data.backgrounds![data.version].profit})`
-          : `url(${data.backgrounds![data.version].loss})`,
+          ? `url(${data.backgrounds![data.version].profit[data.style]})`
+          : `url(${data.backgrounds![data.version].loss[data.style]})`,
     }}
   >
     <div
@@ -326,7 +357,14 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
             fontSize: "40px",
             // color: "#00ff9d !important",
             // color: "#ff006b !important",
-            color: data.profitPercentage! >= 0 ? "#00ff9d" : "#ff006b",
+            color:
+              data.style === "style1"
+                ? data.profitPercentage! >= 0
+                  ? "#00ff9d"
+                  : "#ff006b"
+                : data.profitPercentage! >= 0
+                ? "#ff006b"
+                : "#00ff9d",
             fontFamily: "Rubik",
           }}
         >
