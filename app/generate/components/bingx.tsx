@@ -190,7 +190,7 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
         type="number"
         value={data.leverage}
         onChange={(e) =>
-          setData({ ...data, leverage: parseInt(e.target.value) })
+          setData({ ...data, leverage: parseInt(e.target.value || "0") })
         }
       />
     </div>
@@ -220,11 +220,11 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
             ...data,
             profitPercentage:
               data.profitMode === "percentage"
-                ? parseFloat(e.target.value)
+                ? parseFloat(e.target.value || "0")
                 : data.profitPercentage,
             profitAmount:
               data.profitMode === "amount"
-                ? parseFloat(e.target.value)
+                ? parseFloat(e.target.value || "0")
                 : data.profitAmount,
           })
         }
@@ -237,7 +237,7 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
         type="number"
         value={data.closePrice}
         onChange={(e) =>
-          setData({ ...data, closePrice: parseFloat(e.target.value) })
+          setData({ ...data, closePrice: parseFloat(e.target.value || "0") })
         }
       />
       <input
@@ -246,7 +246,7 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
         type="number"
         value={data.openPrice}
         onChange={(e) =>
-          setData({ ...data, openPrice: parseFloat(e.target.value) })
+          setData({ ...data, openPrice: parseFloat(e.target.value || "0") })
         }
       />
     </div>
@@ -255,7 +255,7 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
         placeholder="時間"
         className="p-2 bg-blue border rounded text-black w-full"
         type="datetime-local"
-        value={data.time}
+        value={formatDate(new Date(data.time), "yyyy-MM-ddTHH:mm")}
         onChange={(e) => setData({ ...data, time: e.target.value })}
       />
     </div>
