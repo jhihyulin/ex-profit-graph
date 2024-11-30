@@ -158,12 +158,14 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
         {data.sideIsBuy ? "買" : "賣"}
       </button>
       <input
+        placeholder="標準貨幣"
         className="p-2 bg-blue border rounded text-black w-1/3"
         type="text"
         value={data.pairStandard}
         onChange={(e) => setData({ ...data, pairStandard: e.target.value })}
       />
       <input
+        placeholder="報價貨幣"
         className="p-2 bg-blue border rounded text-black w-1/3"
         type="text"
         value={data.pairQuote}
@@ -183,6 +185,7 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
         ))}
       </select>
       <input
+        placeholder="槓桿"
         className="p-2 bg-blue border rounded text-black w-1/2"
         type="number"
         value={data.leverage}
@@ -204,6 +207,7 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
         ))}
       </select>
       <input
+        placeholder={data.profitMode === "percentage" ? "收益率" : "收益額"}
         className="p-2 bg-blue border rounded text-black w-3/5"
         type="number"
         value={
@@ -228,6 +232,7 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
     </div>
     <div className="flex flex-row gap-4 mt-4">
       <input
+        placeholder="平倉價格"
         className="p-2 bg-blue border rounded text-black w-1/2"
         type="number"
         value={data.closePrice}
@@ -236,6 +241,7 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
         }
       />
       <input
+        placeholder="開倉均價"
         className="p-2 bg-blue border rounded text-black w-1/2"
         type="number"
         value={data.openPrice}
@@ -246,6 +252,7 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
     </div>
     <div className="flex flex-row gap-4 mt-4">
       <input
+        placeholder="時間"
         className="p-2 bg-blue border rounded text-black w-full"
         type="datetime-local"
         value={data.time}
@@ -254,7 +261,7 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
     </div>
     <div className="flex flex-row gap-4 mt-4">
       <button
-        className="p-2 bg-blue border rounded w-full"
+        className="p-2 bg-blue border rounded w-4/5"
         onClick={() => {
           const input = document.createElement("input");
           input.type = "file";
@@ -274,15 +281,23 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
       >
         開啟頭像
       </button>
+      <button
+        className="p-2 bg-blue border rounded w-1/5"
+        onClick={() => setData({ ...data, avatar: "" })}
+      >
+        清除
+      </button>
     </div>
     <div className="flex flex-row gap-4 mt-4">
       <input
+        placeholder="使用者名稱"
         className="p-2 bg-blue border rounded text-black w-1/2"
         type="text"
         value={data.username}
         onChange={(e) => setData({ ...data, username: e.target.value })}
       />
       <input
+        placeholder="邀請碼"
         className="p-2 bg-blue border rounded text-black w-1/2"
         type="text"
         value={data.referralCode}
