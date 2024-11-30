@@ -36,7 +36,7 @@ export default function RootLayout({
         {children}
         <footer className="row-start-3 flex flex-col items-center justify-center">
           <a
-            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+            className="flex items-center gap-2 hover:opacity-80"
             href="https://github.com/jhihyulin/ex-profit-graph"
             target="_blank"
             rel="noopener noreferrer"

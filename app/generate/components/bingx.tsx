@@ -144,15 +144,15 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
     </div>
     <div className="flex flex-row gap-4 mt-4">
       <button
-        className={`p-2 border rounded ${
+        className={`${
           data.style === "style1"
             ? data.sideIsBuy
-              ? "bg-green-500"
-              : "bg-red-500"
+              ? "bg-green-500 hover:bg-green-600"
+              : "bg-red-500 hover:bg-red-600"
             : data.sideIsBuy
-            ? "bg-red-500"
-            : "bg-green-500"
-        } text-white w-1/3`}
+            ? "bg-red-500 hover:bg-red-600"
+            : "bg-green-500 hover:bg-green-600"
+        } items-center gap-2 px-4 py-2 text-lg font-bold text-white rounded-md w-1/3`}
         onClick={() => setData({ ...data, sideIsBuy: !data.sideIsBuy })}
       >
         {data.sideIsBuy ? "買" : "賣"}
@@ -261,7 +261,7 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
     </div>
     <div className="flex flex-row gap-4 mt-4">
       <button
-        className="p-2 bg-blue border rounded w-4/5"
+        className="items-center gap-2 px-4 py-2 text-lg font-bold text-white rounded-md bg-blue-600 hover:bg-blue-700 w-3/5"
         onClick={() => {
           const input = document.createElement("input");
           input.type = "file";
@@ -282,10 +282,10 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
         開啟頭像
       </button>
       <button
-        className="p-2 bg-blue border rounded w-1/5"
+        className="items-center gap-2 px-4 py-2 text-lg font-bold text-white rounded-md bg-red-600 hover:bg-red-700 w-2/5"
         onClick={() => setData({ ...data, avatar: "" })}
       >
-        清除
+        重置頭像
       </button>
     </div>
     <div className="flex flex-row gap-4 mt-4">

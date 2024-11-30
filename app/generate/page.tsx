@@ -26,7 +26,7 @@ export default function Generate() {
             ) : null
           )}
           <button
-            className="p-2 bg-blue border rounded color-black"
+            className="items-center gap-2 px-4 py-2 text-lg font-bold text-white rounded-md bg-blue-600 hover:bg-blue-700"
             onClick={() => {
               let node = document.getElementById("generate") as HTMLElement;
               let selected = formTypeSelections.find(
