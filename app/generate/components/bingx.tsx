@@ -1,7 +1,6 @@
 import { FormProps, GenerateProps } from "../props";
 import { formatDate, formatNumber } from "../../modules/format";
 import { Rubik } from "next/font/google";
-// qr
 
 const rubik = Rubik({ subsets: ["latin"] });
 
@@ -22,7 +21,7 @@ interface BingXData {
   };
   openPrice: number;
   closePrice: number;
-  time: Date;
+  time: string;
   avatar: string;
   username: string;
   referralCode: string;
@@ -65,7 +64,7 @@ const defaultBingXData: BingXData = {
   },
   openPrice: 0,
   closePrice: 0,
-  time: new Date(),
+  time: formatDate(new Date(), "yyyy/MM/dd HH:mm"),
   avatar: "",
   username: "Harvest Chives",
   referralCode: "VWZLJ6",
@@ -110,6 +109,7 @@ function BingXOption(
   return {
     name: "BingX",
     value: "bingx",
+    scale: 3,
     data: data,
     form: <BingXForm data={data} setData={setData} />,
     generate: <BingXGenerate data={data} />,
@@ -248,8 +248,8 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
       <input
         className="p-2 bg-blue border rounded text-black w-full"
         type="datetime-local"
-        value={data.time.toISOString().slice(0, 16)}
-        onChange={(e) => setData({ ...data, time: new Date(e.target.value) })}
+        value={data.time}
+        onChange={(e) => setData({ ...data, time: e.target.value })}
       />
     </div>
     <div className="flex flex-row gap-4 mt-4">
@@ -661,7 +661,9 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
                   marginBottom: 0,
                 }}
               >
-                {data.time ? formatDate(data.time, "MM/dd HH:mm") : ""}
+                {data.time
+                  ? formatDate(new Date(data.time), "MM/dd HH:mm")
+                  : ""}
               </p>
             </div>
           </div>
