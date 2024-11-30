@@ -2,14 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 const exchangeLogos = [
-  {
-    name: "Binance",
-    src: "/logos/binance.svg",
-  },
-  {
-    name: "OKX",
-    src: "/logos/okx.png",
-  },
+  // {
+  //   name: "Binance",
+  //   src: "/logos/binance.svg",
+  // },
+  // {
+  //   name: "OKX",
+  //   src: "/logos/okx.png",
+  // },
   {
     name: "BingX",
     src: "/logos/bingx.svg",
