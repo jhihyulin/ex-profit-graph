@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import localFont from "next/font/local";
-import { loadEnvConfig } from "@next/env";
+import getConfig from 'next/config';
 import "./globals.css";
+
+const { publicRuntimeConfig } = getConfig();
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
+
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
@@ -26,8 +29,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const projectDir = process.cwd();
-  loadEnvConfig(projectDir);
   return (
     <html lang="zh-Hant">
       <body
@@ -49,7 +50,7 @@ export default function RootLayout({
             />
           </a>
           <p className="text-sm text-center w-full">
-            v{process.env.NEXT_PUBLIC_VERSION}
+            v{publicRuntimeConfig.version}
           </p>
           <p className="text-sm text-center w-full">
             &copy; {new Date().getFullYear()} jhihyulin. Licensed under the GNU
