@@ -541,6 +541,8 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
                 lineHeight: "20px",
                 whiteSpace: "nowrap",
                 marginBottom: 0,
+                fontFamily:
+                  "Yantramanav,Inter,'Inter Fallback',system-ui,sans-serif",
               }}
             >
               {formatNumber(data.closePrice)}
@@ -578,6 +580,8 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
                 lineHeight: "20px",
                 whiteSpace: "nowrap",
                 marginBottom: 0,
+                fontFamily:
+                  "Yantramanav,Inter,'Inter Fallback',system-ui,sans-serif",
               }}
             >
               {formatNumber(data.openPrice)}
@@ -674,6 +678,8 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
                   maxWidth: "150px",
                   minWidth: "100px",
                   marginBottom: 0,
+                  fontFamily:
+                    "Yantramanav,Inter,'Inter Fallback',system-ui,sans-serif",
                 }}
               >
                 {data.time
@@ -726,6 +732,8 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
                 overflow: "hidden",
                 whiteSpace: "nowrap",
                 marginBottom: 0,
+                fontFamily:
+                  "Yantramanav,Inter,'Inter Fallback',system-ui,sans-serif",
               }}
             >
               {data.referralCode}
@@ -743,7 +751,7 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
               }}
               src={`https://quickchart.io/qr?text=${encodeURIComponent(
                 `https://bingx.com/invite/${data.referralCode}?ch=share_poster_position`
-              )}`}
+              )}&margin=2`}
             />
           </div>
         </div>
