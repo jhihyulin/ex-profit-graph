@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import localFont from "next/font/local";
+import { loadEnvConfig } from "@next/env";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -25,13 +26,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const projectDir = process.cwd();
+  loadEnvConfig(projectDir);
   return (
     <html lang="zh-Hant">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
+        <footer className="row-start-3 flex flex-col items-center justify-center">
           <a
             className="flex items-center gap-2 hover:underline hover:underline-offset-4"
             href="https://github.com/jhihyulin/ex-profit-graph"
@@ -45,6 +48,9 @@ export default function RootLayout({
               height={32}
             />
           </a>
+          <p className="text-sm text-center w-full">
+            v{process.env.NEXT_PUBLIC_VERSION}
+          </p>
           <p className="text-sm text-center w-full">
             &copy; {new Date().getFullYear()} jhihyulin. Licensed under the GNU
             General Public License, version 3.
