@@ -1,22 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import localFont from "next/font/local";
 import getConfig from "next/config";
+import { Noto_Sans, Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
 
 const { publicRuntimeConfig } = getConfig();
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const notoSans = Noto_Sans({ subsets: ["latin"] });
+const notoSansTC = Noto_Sans_TC({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "收益圖產生器",
@@ -32,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="zh-Hant">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${notoSans.className} ${notoSansTC.className} antialiased`}
       >
         {children}
         <footer className="row-start-3 flex flex-col items-center justify-center">
