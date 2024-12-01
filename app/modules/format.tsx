@@ -13,7 +13,7 @@ export const formatDate = (
   const hour = date.getHours();
   const minute = date.getMinutes();
   const second = date.getSeconds();
-  const formatMap: { [key: string]: any } = {
+  const formatMap: { [key: string]: string } = {
     yyyy: year.toLocaleString().replace(",", ""),
     MM: month.toLocaleString().padStart(2, "0"),
     dd: day.toLocaleString().padStart(2, "0"),

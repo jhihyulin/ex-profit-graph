@@ -28,11 +28,11 @@ export default function Generate() {
           <button
             className="items-center gap-2 px-4 py-2 text-lg font-bold text-white rounded-md bg-blue-600 hover:bg-blue-700"
             onClick={() => {
-              let node = document.getElementById("generate") as HTMLElement;
-              let selected = formTypeSelections.find(
+              const node = document.getElementById("generate") as HTMLElement;
+              const selected = formTypeSelections.find(
                 (selection) => selection.value === formType
               );
-              let scale = selected ? selected.scale : 1;
+              const scale = selected ? selected.scale : 1;
               domtoimage
                 .toPng(node, {
                   width: node.clientWidth * scale,
@@ -43,7 +43,7 @@ export default function Generate() {
                   },
                 })
                 .then((dataUrl: string) => {
-                  var link = document.createElement("a");
+                  const link = document.createElement("a");
                   link.download = selected
                     ? selected.value + ".png"
                     : "generate.png";
