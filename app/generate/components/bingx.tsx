@@ -681,6 +681,7 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
                   fontFamily:
                     "Yantramanav,Inter,'Inter Fallback',system-ui,sans-serif",
                 }}
+                suppressHydrationWarning
               >
                 {data.time
                   ? formatDate(new Date(data.time), "MM/dd HH:mm")
