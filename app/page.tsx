@@ -26,14 +26,23 @@ export default function Home() {
         <div className="flex gap-4 flex-wrap justify-center sm:justify-start sm:max-w-[calc(64px*8)]">
           {exchangeLogos.map((logo) => (
             <div key={logo.name} className="flex-shrink-0 h-6">
-              <Image src={logo.src} alt={logo.name} width={64} height={64} style={{ width: 'auto', height: '100%' }} />
+              <Image
+                src={logo.src}
+                alt={logo.name}
+                width={64}
+                height={64}
+                style={{ width: "auto", height: "100%" }}
+              />
             </div>
           ))}
         </div>
         <p className="text-sm text-gray-500 text-center sm:text-left">
           本工具與以上交易所無任何關聯，禁止用於非法用途。
         </p>
-        <Link className="flex items-center gap-2 px-4 py-2 text-lg font-bold text-white bg-blue-600 rounded-md hover:bg-blue-700" href="/generate">
+        <Link
+          className="flex items-center gap-2 px-4 py-2 text-lg font-bold text-white bg-blue-600 rounded-md hover:bg-blue-700"
+          href="/generate"
+        >
           產生收益圖
         </Link>
       </main>

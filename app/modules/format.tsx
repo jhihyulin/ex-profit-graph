@@ -20,7 +20,7 @@ export const formatDate = (
     HH: hour.toLocaleString().padStart(2, "0"),
     mm: minute.toLocaleString().padStart(2, "0"),
     ss: second.toLocaleString().padStart(2, "0"),
-    T: "T"
+    T: "T",
   };
   return format.replace(/yyyy|MM|dd|HH|mm|ss|T/g, (match) => formatMap[match]);
 };
@@ -28,4 +28,4 @@ export const formatDate = (
 export const formatNumber = (num: number): string => {
   if (num === 0) return "0";
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+};

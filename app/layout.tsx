@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import localFont from "next/font/local";
-import getConfig from 'next/config';
+import getConfig from "next/config";
 import "./globals.css";
 
 const { publicRuntimeConfig } = getConfig();
