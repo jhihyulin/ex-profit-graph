@@ -309,20 +309,22 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
 
 const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
   <div
+    className="bg-cover bg-no-repeat bg-center bg-black"
     style={{
-      backgroundColor: "#000",
-      background: "#000",
-      backgroundRepeat: "no-repeat !important",
-      backgroundSize: "cover !important",
+      // backgroundColor: "#000",
+      // background: "#000",
+      // backgroundRepeat: "no-repeat !important",
+      // backgroundSize: "cover !important",
       height: "320px",
       position: "relative",
       width: "320px",
       fontFamily:
         "'Source Sans Pro', 'Microsoft YaHei', Inter, 'Inter Fallback', sans-serif",
-      backgroundImage:
+      backgroundImage: `url(${
         data.profitPercentage! >= 0
-          ? `url(${data.backgrounds![data.version].profit[data.style]})`
-          : `url(${data.backgrounds![data.version].loss[data.style]})`,
+          ? data.backgrounds![data.version].profit[data.style]
+          : data.backgrounds![data.version].loss[data.style]
+      })`,
     }}
   >
     <div
