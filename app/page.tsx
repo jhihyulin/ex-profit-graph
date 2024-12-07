@@ -1,5 +1,9 @@
+"use client";
+
+import { Button } from "@nextui-org/react";
 import Image from "next/image";
-import Link from "next/link";
+import { useState } from "react";
+import { FaArrowRight } from "react-icons/fa6";
 
 const exchangeLogos = [
   // {
@@ -17,6 +21,8 @@ const exchangeLogos = [
 ];
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
@@ -39,12 +45,20 @@ export default function Home() {
         <p className="text-sm text-gray-500 text-center sm:text-left">
           本工具與以上交易所無任何關聯，禁止用於非法用途。
         </p>
-        <Link
-          className="flex items-center gap-2 px-4 py-2 text-lg font-bold text-white bg-blue-600 rounded-md hover:bg-blue-700"
-          href="/generate"
+        <Button
+          color="primary"
+          isLoading={isLoading}
+          startContent={isLoading ? null : <FaArrowRight />}
+          radius="full"
+          variant="faded"
+          className="shadow-lg font-bold"
+          onPress={() => {
+            setIsLoading(true);
+            window.open("/generate", "_self");
+          }}
         >
           產生收益圖
-        </Link>
+        </Button>
       </main>
     </div>
   );
