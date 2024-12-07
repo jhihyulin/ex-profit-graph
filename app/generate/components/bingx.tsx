@@ -2,6 +2,11 @@ import { Rubik } from "next/font/google";
 import { Select, SelectItem } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
+import { DateInput, DateValue } from "@nextui-org/react";
+import { TimeInput, TimeInputValue } from "@nextui-org/react";
+import { parseDate } from "@internationalized/date";
+import { parseAbsoluteToLocal } from "@internationalized/date";
+import { getLocalTimeZone } from "@internationalized/date";
 import { FaUpLong } from "react-icons/fa6";
 import { FaDownLong } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa6";
@@ -29,7 +34,8 @@ interface BingXData {
   };
   openPrice: number;
   closePrice: number;
-  time: string;
+  date: DateValue;
+  time: TimeInputValue;
   avatar: string;
   username: string;
   referralCode: string;
@@ -72,7 +78,8 @@ const defaultBingXData: BingXData = {
   },
   openPrice: 0,
   closePrice: 0,
-  time: formatDate(new Date(), "yyyy/MM/dd HH:mm"),
+  date: parseDate(formatDate(new Date(), "yyyy-MM-dd")),
+  time: parseAbsoluteToLocal(new Date().toISOString()),
   avatar: "",
   username: "Harvest Chives",
   referralCode: "VWZLJ6",
@@ -306,12 +313,23 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
       />
     </div>
     <div className="flex flex-row gap-2 mt-2 items-center">
-      <input
-        placeholder="時間"
-        className="p-2 bg-blue border rounded text-black w-full"
-        type="datetime-local"
-        value={formatDate(new Date(data.time), "yyyy-MM-ddTHH:mm")}
-        onChange={(e) => setData({ ...data, time: e.target.value })}
+      <DateInput
+        variant="faded"
+        label="日期"
+        className="w-1/2"
+        value={data.date}
+        onChange={(e) => setData({ ...data, date: e })}
+        suppressHydrationWarning
+      />
+      <TimeInput
+        hideTimeZone
+        hourCycle={24}
+        variant="faded"
+        label="時間"
+        className="w-1/2"
+        value={data.time}
+        onChange={(e) => setData({ ...data, time: e })}
+        suppressHydrationWarning
       />
     </div>
     <div className="flex flex-row gap-2 mt-2 items-center">
@@ -753,9 +771,15 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
                 }}
                 suppressHydrationWarning
               >
-                {data.time
-                  ? formatDate(new Date(data.time), "MM/dd HH:mm")
-                  : ""}
+                {`${
+                  data.date
+                    ? formatDate(data.date?.toDate(getLocalTimeZone()), "MM/dd")
+                    : "--/--"
+                } ${
+                  data.time ? String(data.time.hour).padStart(2, "0") : "--"
+                }:${
+                  data.time ? String(data.time.minute).padStart(2, "0") : "--"
+                }`}
               </p>
             </div>
           </div>
