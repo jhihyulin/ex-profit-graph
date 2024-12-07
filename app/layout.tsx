@@ -4,7 +4,6 @@ import { Noto_Sans, Noto_Sans_TC } from "next/font/google";
 import { NextUIProvider } from "@nextui-org/react";
 import { Link } from "@nextui-org/react";
 import { ThemeProvider } from "next-themes";
-import { ThemeSwitcher } from "../components/theme-switcher";
 import "./globals.css";
 
 const { publicRuntimeConfig } = getConfig();
@@ -29,10 +28,9 @@ export default function RootLayout({
         className={`${notoSans.className} ${notoSansTC.className} antialiased`}
       >
         <NextUIProvider>
-          <ThemeProvider attribute="class" enableSystem={true}>
+          <ThemeProvider attribute="class" defaultTheme="dark">
             {children}
             <footer className="row-start-3 flex flex-col items-center justify-center">
-              <ThemeSwitcher />
               <Link
                 href="https://github.com/jhihyulin/ex-profit-graph"
                 color="foreground"
