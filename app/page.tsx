@@ -26,8 +26,8 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 sm:p-20">
-      <div className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-4 sm:p-8">
+      <div className="flex flex-col row-start-2 items-center sm:items-start gap-4 sm:gap-8">
         <h1 className="text-4xl font-bold text-center sm:text-left">
           收益圖產生器
         </h1>
