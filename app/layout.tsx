@@ -29,7 +29,7 @@ export default function RootLayout({
       <body
         className={`${notoSans.className} ${notoSansTC.className} antialiased`}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+        <Providers themeProps={{ attribute: "class", enableSystem: true }}>
           <main className="min-h-screen">{children}</main>
           <Footer {...publicRuntimeConfig} />
         </Providers>
