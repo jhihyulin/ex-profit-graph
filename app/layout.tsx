@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import getConfig from "next/config";
+
 import { Noto_Sans, Noto_Sans_TC } from "next/font/google";
-import { NextUIProvider } from "@nextui-org/react";
-import { Link } from "@nextui-org/react";
-import { ThemeProvider } from "next-themes";
+import getConfig from "next/config";
+
+import { Providers } from "./providers";
+import { Footer } from "../components/footer";
+
 import "./globals.css";
 
 const { publicRuntimeConfig } = getConfig();
@@ -27,28 +29,10 @@ export default function RootLayout({
       <body
         className={`${notoSans.className} ${notoSansTC.className} antialiased`}
       >
-        <NextUIProvider>
-          <ThemeProvider attribute="class" defaultTheme="dark">
-            {children}
-            <footer className="row-start-3 flex flex-col items-center justify-center">
-              <Link
-                href="https://github.com/jhihyulin/ex-profit-graph"
-                color="foreground"
-                size="sm"
-                underline="hover"
-              >
-                Repository
-              </Link>
-              <p className="text-sm text-center w-full">
-                v{publicRuntimeConfig.version}
-              </p>
-              <p className="text-sm text-center w-full">
-                &copy; {new Date().getFullYear()} jhihyulin. Licensed under the
-                GNU General Public License, version 3.
-              </p>
-            </footer>
-          </ThemeProvider>
-        </NextUIProvider>
+        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+          <main className="min-h-screen">{children}</main>
+          <Footer {...publicRuntimeConfig} />
+        </Providers>
       </body>
     </html>
   );

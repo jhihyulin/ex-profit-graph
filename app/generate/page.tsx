@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import domtoimage from "dom-to-image";
 import { Button } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
 import { Card, CardBody } from "@nextui-org/react";
 import { FaDownload } from "react-icons/fa6";
+import domtoimage from "dom-to-image";
 
 // import { TestData, defaultTestData, TestOption } from "./components/test";
 import { BingXData, defaultBingXData, BingXOption } from "./components/bingx";
@@ -21,8 +21,8 @@ export default function Generate() {
   const [isSaveLoading, setIsSaveLoading] = useState(false);
 
   return (
-    <div className="flex items-center justify-center min-h-screen min-w-screen p-4 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-wrap gap-8 items-center justify-center w-full">
+    <div className="flex items-center justify-items-center min-h-screen p-8 sm:p-20">
+      <div className="flex flex-wrap gap-8 items-center justify-center w-full">
         <Card>
           <CardBody className="flex flex-col gap-2 justify-center">
             {formTypeSelections.map((selection) =>
@@ -93,7 +93,7 @@ export default function Generate() {
             )}
           </CardBody>
         </Card>
-      </main>
+      </div>
     </div>
   );
 }

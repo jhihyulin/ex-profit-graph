@@ -1,9 +1,9 @@
 "use client";
 
 import { Button } from "@nextui-org/react";
-import Image from "next/image";
 import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
+import Image from "next/image";
 
 const exchangeLogos = [
   // {
@@ -24,8 +24,8 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 sm:p-20">
+      <div className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <h1 className="text-4xl font-bold text-center sm:text-left">
           收益圖產生器
         </h1>
@@ -58,7 +58,7 @@ export default function Home() {
         >
           產生收益圖
         </Button>
-      </main>
+      </div>
     </div>
   );
 }
