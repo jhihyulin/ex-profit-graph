@@ -10,7 +10,7 @@ import { getLocalTimeZone } from "@internationalized/date";
 import { FaUpLong } from "react-icons/fa6";
 import { FaDownLong } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa6";
-import { FaX } from "react-icons/fa6";
+import { FaArrowRotateLeft } from "react-icons/fa6";
 
 import { FormProps, GenerateProps } from "../props";
 import { formatDate, formatNumber } from "../../modules/format";
@@ -360,8 +360,7 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
       <Button
         isIconOnly
         isDisabled={!data.avatar}
-        startContent={<FaX />}
-        color="danger"
+        startContent={<FaArrowRotateLeft />}
         size="lg"
         variant="faded"
         className="w-1/5 shadow-lg font-bold"
