@@ -13,11 +13,13 @@ const exchangeLogos = [
   // },
   // {
   //   name: "OKX",
-  //   src: "/logos/okx.png",
+  //   src: "/logos/okx.svg",
+  //   className: "dark:invert",
   // },
   {
     name: "BingX",
     src: "/logos/bingx.svg",
+    className: "invert dark:invert-0",
   },
 ];
 
@@ -40,6 +42,7 @@ export default function Home() {
                 width={64}
                 height={64}
                 style={{ width: "auto", height: "100%" }}
+                className={logo.className}
               />
             </div>
           ))}

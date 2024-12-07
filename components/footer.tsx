@@ -2,11 +2,14 @@
 
 import { Link } from "@nextui-org/react";
 
+import { ThemeSwitcher } from "./theme-switcher";
+
 export default function Footer(publicRuntimeConfig: {
   version: string;
 }): JSX.Element {
   return (
     <footer className="row-start-3 flex flex-col items-center justify-center">
+      <ThemeSwitcher />
       <Link
         href="https://github.com/jhihyulin/ex-profit-graph"
         color="foreground"

@@ -453,6 +453,7 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
       >
         <span
           style={{
+            color: "#fff",
             marginBottom: "8px",
             display: "block",
             fontSize: "12px",
@@ -471,6 +472,7 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
         >
           <span
             style={{
+              color: "#fff",
               alignItems: "center",
               display: "flex",
               fontSize: "16px",
@@ -528,6 +530,7 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
           ></span>
           <span
             style={{
+              color: "#fff",
               alignItems: "center",
               display: "flex",
               fontSize: "16px",
@@ -817,6 +820,7 @@ const BingXGenerate: React.FC<GenerateProps<BingXData>> = ({ data }) => (
             </p>
             <p
               style={{
+                color: "#fff",
                 transformOrigin: "100% 100%",
                 transform: "translateY(2px)",
                 fontWeight: 500,
