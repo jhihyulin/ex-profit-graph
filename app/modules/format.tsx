@@ -27,5 +27,7 @@ export const formatDate = (
 
 export const formatNumber = (num: number): string => {
   if (num === 0) return "0";
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const [integerPart, decimalPart] = num.toString().split(".");
+  const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return decimalPart ? `${formattedInteger}.${decimalPart}` : formattedInteger;
 };
