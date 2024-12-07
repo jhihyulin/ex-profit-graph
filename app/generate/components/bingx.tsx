@@ -338,7 +338,7 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
         size="lg"
         variant="faded"
         className="w-4/5 shadow-lg font-bold"
-        onClick={() => {
+        onPress={() => {
           const input = document.createElement("input");
           input.type = "file";
           input.accept = "image/*";
@@ -364,7 +364,7 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
         size="lg"
         variant="faded"
         className="w-1/5 shadow-lg font-bold"
-        onClick={() => setData({ ...data, avatar: "" })}
+        onPress={() => setData({ ...data, avatar: "" })}
       ></Button>
     </div>
     <div className="flex flex-row gap-2 mt-2 items-center">
