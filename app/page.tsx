@@ -49,7 +49,6 @@ export default function Home() {
           color="primary"
           isLoading={isLoading}
           startContent={isLoading ? null : <FaArrowRight />}
-          radius="full"
           variant="faded"
           className="shadow-lg font-bold"
           onPress={() => {

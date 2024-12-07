@@ -1,6 +1,14 @@
+import { Rubik } from "next/font/google";
+import { Select, SelectItem } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
+import { FaUpLong } from "react-icons/fa6";
+import { FaDownLong } from "react-icons/fa6";
+import { FaUser } from "react-icons/fa6";
+import { FaX } from "react-icons/fa6";
+
 import { FormProps, GenerateProps } from "../props";
 import { formatDate, formatNumber } from "../../modules/format";
-import { Rubik } from "next/font/google";
 
 const rubik = Rubik({ subsets: ["latin"] });
 
@@ -118,103 +126,146 @@ function BingXOption(
 
 const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
   <div>
-    <div className="flex flex-row gap-4">
-      <select
-        className="p-2 bg-blue border rounded text-black w-1/2"
+    <div className="flex flex-row gap-2 items-center">
+      <Select
+        disallowEmptySelection
+        className="w-1/2"
+        variant="faded"
+        label="版本"
+        placeholder="選擇版本"
+        selectedKeys={[data.version]}
         value={data.version}
-        onChange={(e) => setData({ ...data, version: e.target.value })}
+        onSelectionChange={(keys) =>
+          setData({ ...data, version: Array.from(keys).join("") })
+        }
       >
         {Object.entries(data.versions!).map(([key, value]) => (
-          <option key={key} value={key}>
+          <SelectItem key={key} value={key}>
             {value}
-          </option>
+          </SelectItem>
         ))}
-      </select>
-      <select
-        className="p-2 bg-blue border rounded text-black w-1/2"
+      </Select>
+      <Select
+        disallowEmptySelection
+        className="w-1/2"
+        variant="faded"
+        label="風格"
+        placeholder="選擇風格"
+        selectedKeys={[data.style]}
         value={data.style}
-        onChange={(e) => setData({ ...data, style: e.target.value })}
+        onSelectionChange={(keys) =>
+          setData({ ...data, style: Array.from(keys).join("") })
+        }
       >
         {Object.entries(data.styles!).map(([key, value]) => (
-          <option key={key} value={key}>
+          <SelectItem key={key} value={key}>
             {value}
-          </option>
+          </SelectItem>
         ))}
-      </select>
+      </Select>
     </div>
-    <div className="flex flex-row gap-4 mt-4">
-      <button
-        className={`${
+    <div className="flex flex-row gap-2 mt-2 items-center">
+      <Button
+        startContent={data.sideIsBuy ? <FaUpLong /> : <FaDownLong />}
+        size="lg"
+        className="shadow-lg font-bold w-1/3"
+        color={
           data.style === "style1"
             ? data.sideIsBuy
-              ? "bg-green-500 hover:bg-green-600"
-              : "bg-red-500 hover:bg-red-600"
+              ? "success"
+              : "danger"
             : data.sideIsBuy
-            ? "bg-red-500 hover:bg-red-600"
-            : "bg-green-500 hover:bg-green-600"
-        } items-center gap-2 px-4 py-2 text-lg font-bold text-white rounded-md w-1/3`}
-        onClick={() => setData({ ...data, sideIsBuy: !data.sideIsBuy })}
+            ? "danger"
+            : "success"
+        }
+        variant="faded"
+        onPress={() => setData({ ...data, sideIsBuy: !data.sideIsBuy })}
       >
         {data.sideIsBuy ? "買" : "賣"}
-      </button>
-      <input
-        placeholder="標準貨幣"
-        className="p-2 bg-blue border rounded text-black w-1/3"
+      </Button>
+      <Input
+        variant="faded"
+        label="標準貨幣"
+        placeholder="BTC"
+        className="w-1/3"
         type="text"
+        spellCheck="false"
         value={data.pairStandard}
         onChange={(e) => setData({ ...data, pairStandard: e.target.value })}
       />
-      <input
-        placeholder="報價貨幣"
-        className="p-2 bg-blue border rounded text-black w-1/3"
+      <Input
+        variant="faded"
+        label="報價貨幣"
+        placeholder="USDT"
+        className="w-1/3"
         type="text"
+        spellCheck="false"
         value={data.pairQuote}
         onChange={(e) => setData({ ...data, pairQuote: e.target.value })}
       />
     </div>
-    <div className="flex flex-row gap-4 mt-4">
-      <select
-        className="p-2 bg-blue border rounded text-black w-1/2"
+    <div className="flex flex-row gap-2 mt-2 items-center">
+      <Select
+        disallowEmptySelection
+        className="w-1/2"
+        variant="faded"
+        label="交易模式"
+        placeholder="選擇交易模式"
+        selectedKeys={[data.tradeMode]}
         value={data.tradeMode}
-        onChange={(e) => setData({ ...data, tradeMode: e.target.value })}
+        onSelectionChange={(keys) =>
+          setData({ ...data, tradeMode: Array.from(keys).join("") })
+        }
       >
         {Object.entries(data.tradeModes!).map(([key, value]) => (
-          <option key={key} value={key}>
+          <SelectItem key={key} value={key}>
             {value}
-          </option>
+          </SelectItem>
         ))}
-      </select>
-      <input
-        placeholder="槓桿"
-        className="p-2 bg-blue border rounded text-black w-1/2"
+      </Select>
+      <Input
+        variant="faded"
+        label="槓桿"
+        placeholder="125"
+        className="w-1/2"
         type="number"
-        value={data.leverage}
+        value={String(data.leverage)}
         onChange={(e) =>
           setData({ ...data, leverage: parseInt(e.target.value || "0") })
         }
       />
     </div>
-    <div className="flex flex-row gap-4 mt-4">
-      <select
-        className="p-2 bg-blue border rounded text-black w-2/5"
+    <div className="flex flex-row gap-2 mt-2 items-center">
+      <Select
+        disallowEmptySelection
+        className="w-2/5"
+        variant="faded"
+        label="收益模式"
+        placeholder="選擇收益模式"
+        selectedKeys={[data.profitMode]}
         value={data.profitMode}
-        onChange={(e) => setData({ ...data, profitMode: e.target.value })}
+        onSelectionChange={(keys) =>
+          setData({ ...data, profitMode: Array.from(keys).join("") })
+        }
       >
         {Object.entries(data.profitModes!).map(([key, value]) => (
-          <option key={key} value={key}>
+          <SelectItem key={key} value={key}>
             {value}
-          </option>
+          </SelectItem>
         ))}
-      </select>
-      <input
-        placeholder={data.profitMode === "percentage" ? "收益率" : "收益額"}
-        className="p-2 bg-blue border rounded text-black w-3/5"
+      </Select>
+      <Input
+        variant="faded"
+        label={data.profitMode === "percentage" ? "收益率" : "收益額"}
+        placeholder="0"
+        className="w-3/5"
         type="number"
         value={
           data.profitMode === "percentage"
-            ? data.profitPercentage
-            : data.profitAmount
+            ? String(data.profitPercentage)
+            : String(data.profitAmount)
         }
+        endContent={data.profitMode === "percentage" ? "%" : data.pairQuote}
         onChange={(e) =>
           setData({
             ...data,
@@ -230,27 +281,31 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
         }
       />
     </div>
-    <div className="flex flex-row gap-4 mt-4">
-      <input
-        placeholder="平倉價格"
-        className="p-2 bg-blue border rounded text-black w-1/2"
+    <div className="flex flex-row gap-2 mt-2 items-center">
+      <Input
+        variant="faded"
+        label="平倉價格"
+        placeholder="0"
+        className="w-1/2"
         type="number"
-        value={data.closePrice}
+        value={String(data.closePrice)}
         onChange={(e) =>
           setData({ ...data, closePrice: parseFloat(e.target.value || "0") })
         }
       />
-      <input
-        placeholder="開倉均價"
-        className="p-2 bg-blue border rounded text-black w-1/2"
+      <Input
+        variant="faded"
+        label="開倉均價"
+        placeholder="0"
+        className="w-1/2"
         type="number"
-        value={data.openPrice}
+        value={String(data.openPrice)}
         onChange={(e) =>
           setData({ ...data, openPrice: parseFloat(e.target.value || "0") })
         }
       />
     </div>
-    <div className="flex flex-row gap-4 mt-4">
+    <div className="flex flex-row gap-2 mt-2 items-center">
       <input
         placeholder="時間"
         className="p-2 bg-blue border rounded text-black w-full"
@@ -259,9 +314,12 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
         onChange={(e) => setData({ ...data, time: e.target.value })}
       />
     </div>
-    <div className="flex flex-row gap-4 mt-4">
-      <button
-        className="items-center gap-2 px-4 py-2 text-lg font-bold text-white rounded-md bg-blue-600 hover:bg-blue-700 w-3/5"
+    <div className="flex flex-row gap-2 mt-2 items-center">
+      <Button
+        startContent={<FaUser />}
+        size="lg"
+        variant="faded"
+        className="w-4/5 shadow-lg font-bold"
         onClick={() => {
           const input = document.createElement("input");
           input.type = "file";
@@ -280,26 +338,36 @@ const BingXForm: React.FC<FormProps<BingXData>> = ({ data, setData }) => (
         }}
       >
         開啟頭像
-      </button>
-      <button
-        className="items-center gap-2 px-4 py-2 text-lg font-bold text-white rounded-md bg-red-600 hover:bg-red-700 w-2/5"
+      </Button>
+      <Button
+        isIconOnly
+        isDisabled={!data.avatar}
+        startContent={<FaX />}
+        color="danger"
+        size="lg"
+        variant="faded"
+        className="w-1/5 shadow-lg font-bold"
         onClick={() => setData({ ...data, avatar: "" })}
-      >
-        重置頭像
-      </button>
+      ></Button>
     </div>
-    <div className="flex flex-row gap-4 mt-4">
-      <input
-        placeholder="使用者名稱"
-        className="p-2 bg-blue border rounded text-black w-1/2"
+    <div className="flex flex-row gap-2 mt-2 items-center">
+      <Input
+        variant="faded"
+        label="使用者名稱"
+        placeholder="Harvest Chives"
+        className="w-1/2"
         type="text"
+        spellCheck="false"
         value={data.username}
         onChange={(e) => setData({ ...data, username: e.target.value })}
       />
-      <input
-        placeholder="邀請碼"
-        className="p-2 bg-blue border rounded text-black w-1/2"
+      <Input
+        variant="faded"
+        label="邀請碼"
+        placeholder="VWZLJ6"
+        className="w-1/2"
         type="text"
+        spellCheck="false"
         value={data.referralCode}
         onChange={(e) => setData({ ...data, referralCode: e.target.value })}
       />
