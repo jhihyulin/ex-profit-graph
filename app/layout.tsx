@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import getConfig from "next/config";
 import { Noto_Sans, Noto_Sans_TC } from "next/font/google";
+import { NextUIProvider } from "@nextui-org/react";
+import { Link } from "@nextui-org/react";
+import { ThemeProvider } from "next-themes";
+import { ThemeSwitcher } from "../components/theme-switcher";
 import "./globals.css";
 
 const { publicRuntimeConfig } = getConfig();
@@ -21,33 +24,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-Hant">
+    <html lang="zh-Hant" suppressHydrationWarning>
       <body
         className={`${notoSans.className} ${notoSansTC.className} antialiased`}
       >
-        {children}
-        <footer className="row-start-3 flex flex-col items-center justify-center">
-          <a
-            className="flex items-center gap-2 hover:opacity-80"
-            href="https://github.com/jhihyulin/ex-profit-graph"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/logos/github-mark.svg"
-              alt="GitHub mark"
-              width={32}
-              height={32}
-            />
-          </a>
-          <p className="text-sm text-center w-full">
-            v{publicRuntimeConfig.version}
-          </p>
-          <p className="text-sm text-center w-full">
-            &copy; {new Date().getFullYear()} jhihyulin. Licensed under the GNU
-            General Public License, version 3.
-          </p>
-        </footer>
+        <NextUIProvider>
+          <ThemeProvider attribute="class" enableSystem={true}>
+            {children}
+            <footer className="row-start-3 flex flex-col items-center justify-center">
+              <ThemeSwitcher />
+              <Link
+                href="https://github.com/jhihyulin/ex-profit-graph"
+                color="foreground"
+                size="sm"
+                underline="hover"
+              >
+                Repository
+              </Link>
+              <p className="text-sm text-center w-full">
+                v{publicRuntimeConfig.version}
+              </p>
+              <p className="text-sm text-center w-full">
+                &copy; {new Date().getFullYear()} jhihyulin. Licensed under the
+                GNU General Public License, version 3.
+              </p>
+            </footer>
+          </ThemeProvider>
+        </NextUIProvider>
       </body>
     </html>
   );
